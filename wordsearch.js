@@ -14,20 +14,24 @@ const transpose = function (matrix) {
 
 //created reverser function to keep code DRY
 const reverser = function(input) {
-    input.split('').reverse().join('');
+    return input.split('').reverse().join('');
+};
+
+//created mapper to help refactor the function
+const mapper = function(input) {
+  return input.map(ls => ls.join(''));
 };
 
 const wordSearch = (letters, word) => { 
-    const horizontalJoin = letters.map(ls => ls.join(''))
-    const verticalJoin = transpose(letters);
-    let joinedVertical = verticalJoin.map(ls => ls.join(''))
+    const horizontalJoin = mapper(letters);
+    const verticalJoin = transpose(mapper(letters));
     for (l of horizontalJoin) {
-        if (l.includes(word) || l.includes(reverser(word))) return true;
+        if (l.includes(word) || l.includes((word))) return true;
     }
-    for (v of joinedVertical) {
-        if (v.includes(word) || v.includes(reverser(word))) return true;
+    for (v of verticalJoin) {
+        if (v.includes(word) || v.includes((word))) return true;
     }
-    return false
+    return false;
   };
 
 module.exports = wordSearch
